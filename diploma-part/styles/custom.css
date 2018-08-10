@@ -1,0 +1,162 @@
+.entries-data {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.inputs input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+.block-center {
+  margin: 0 auto;
+}
+
+.table-left {
+  text-align: left;
+  padding: 0 5px;
+  width: 50%;
+}
+
+.table-right {
+  text-align: right;
+  padding: 0 5px;
+  width: 50%;
+}
+
+.group-btn  button:not(:last-child){
+  margin-right:7px;
+}
+
+.flex-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.entries {
+  flex-grow: 1;
+  flex-basis: 620px;
+  min-height: 400px;
+}
+
+.stern-first-table {
+  flex-grow: 1;
+  width: 40%;
+}
+
+.stern-second-table {
+  flex-grow: 1;
+  width: 40%;
+}
+
+.stern-separator {
+  flex-grow: 1;
+  width: 6%;
+}
+
+.output-data {
+  line-height: 2.5;
+  flex-grow: 1;
+}
+
+.output-cows {
+  line-height: 1.9;
+  flex-grow: 1;
+}
+
+.tbinp {
+  width: 25px;
+}
+
+.width-bl {
+  width: 11%
+}
+
+.info-field {
+  position: relative;
+}
+
+.info {
+  border-radius: 10px;
+  width: 470px;
+  height: 400px;
+  position: absolute;
+  top: 41px;
+  left: 10px;
+  z-index: 9090;
+}
+
+
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  z-index: 99999999;
+  background-color:rgba(0,0,0,.2)
+}
+.modal-wrapper:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.modal {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  width: 50%;
+  margin: 0 auto;
+  padding: 10px;
+  
+  font-family:Arial,sans-serif;
+  font-size:12px;
+  
+  -moz-box-shadow: 0 0 20px 0 rgba(0, 0, 0, .5);
+  -webkit-box-shadow: 0 0 20px 0 rgba(0, 0, 0, .5);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, .5);
+  
+  -moz-border-radius:   	20px;
+  -webkit-border-radius: 	20px;
+  border-radius: 					20px;
+  -khtml-border-radius: 	20px;
+  
+  background-color:white;
+}
+
+.modal > h1{
+  padding:8px;
+  margin:-10px -10px 0;
+  font-family:verdana,sans-serif;
+  font-size:18px;
+  color:white;
+  
+  -moz-border-radius: 		20px 20px 0 0;
+  -webkit-border-radius: 	20px 20px 0 0;
+  border-radius: 					20px 20px 0 0;
+  -khtml-border-radius: 	20px 20px 0 0;
+  
+  text-shadow:2px 2px 0 rgba(0,0,0,.3);
+  
+  background-color:rgba(133, 113, 113, 0.452);
+}
+
+
+.modal_content.p {
+  text-align: left;
+}
+
+.username {
+  align-content: center;
+  text-align: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 50px;
+}

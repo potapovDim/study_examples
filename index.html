@@ -1,0 +1,26 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <button id="button">Click</button>
+</body>
+<script>
+
+  document.getElementById('button').addEventListener('click', () => {
+    Promise.resolve().then(() => console.log('clicked 1'))
+    console.log('listener 1')
+  })
+
+  document.getElementById('button').addEventListener('click', () => {
+    Promise.resolve().then(() => console.log('clicked 2'))
+    console.log('listener 2')
+  })
+</script>
+
+</html>

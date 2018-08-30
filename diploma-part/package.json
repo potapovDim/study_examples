@@ -36,7 +36,6 @@
     "babel-preset-stage-0": "^6.16.0",
     "babel-register": "^6.9.0",
     "protractor": "^5.2.2",
-    "protractor-typescript": "ssh+git@github.com:bondarukoleh/Protractor-TypeScript.git",
     "simulant": "^0.2.2",
     "test-fake-server": "^1.5.4",
     "webdriver-manager": "^12.1.0",

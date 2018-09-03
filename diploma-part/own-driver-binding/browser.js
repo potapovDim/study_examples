@@ -43,7 +43,7 @@ class Browser {
   stopDriver() {
     console.log('stop driver')
     if(this.driverProc) {
-      this.driverProc.ref()
+      // this.driverProc.ref()
       this.driverProc.kill()
     }
   }
@@ -58,8 +58,10 @@ async function Test() {
   const browser = new Browser()
   await browser.startDriver().then(console.log)
   await browser.getSession()
-  await browser.closeSession()
-  await browser.stopDriver()
+  console.log('!!!!')
+  // await browser.closeSession()
+  // await browser.stopDriver()
 }
 
 Test()
+console.log('here')

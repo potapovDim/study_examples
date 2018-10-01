@@ -44,3 +44,32 @@ function Factory() {
 }
 
 
+// pub-sub
+const pubSub = (function() {
+  const subscribers = {}
+  return {
+    subscribe: function(action, listener) {
+      if(!subscribers[action]) {subscribers[action] = []}
+      const index = subscribers[action].push(listener) - 1
+
+      return {
+        remove: function() {
+          subscribers[action].splice(index, 1)
+        }
+      }
+    },
+    publish: function(action, data) {
+      if(!subscribers[action]) return
+      // execute action
+      subscribers[action].forEach(function(subscriber) {
+        subscriber(data)
+      })
+    }
+  }
+})()
+
+const logger = pubSub.subscribe('log', function(data) {console.log(data, 'log')})
+
+
+
+pubSub.publish('log', {item: 1})

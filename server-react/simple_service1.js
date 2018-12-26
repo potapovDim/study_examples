@@ -1,12 +1,42 @@
 const Koa = require('koa2')
 const bodyParser = require('koa-bodyparser')
 const cors = require('koa-cors')
+const fs = require('fs')
+const path = require('path')
+
+function save_JSON_data(data) {
+  const data_JSON_path = './temp/data.json'
+  const is_presend_JSON_holder = fs.existsSync(path.resolve(process.cwd(), data_JSON_path))
+  if(is_presend_JSON_holder) {
+    const existing_JSON_data = JSON.parse(require(data_JSON_path))
+    if(Array.isArray(existing_JSON_data)) {
+      existing_JSON_data.push(data)
+      fs.unlink(data_JSON_path)
+      fs.writeFileSync(data_JSON_path, JSON.stringify(existing_JSON_data))
+    }
+  }
+}
+
+// if data cant be converted to JSON will return error
+function dataToJSON(data) {
+  try {
+    save_JSON_data(data)
+    return {ok: 'ok'}
+  }
+  catch(e) {
+    return {not_ok: 'data cant be converted in JSON format'}
+  }
+}
+
+// service works with JSON format files
+
 
 const {fetchy_util} = require('./request_util')('http://localhost:8080')
 
 const servise_1_action_types = {
   ASSERT_CONNECTION: 'ASSERT_CONNECTION',
-  ASSERT_CONNECTION_ENVIRONMENT: 'ASSERT_CONNECTION_ENVIRONMENT'
+  ASSERT_CONNECTION_ENVIRONMENT: 'ASSERT_CONNECTION_ENVIRONMENT',
+  SAVE_JSON_DATA: 'SAVE_JSON_DATA'
 }
 
 const app = new Koa()

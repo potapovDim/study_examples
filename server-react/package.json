@@ -13,5 +13,9 @@
     "koa-cors": "0.0.16",
     "koa-router": "^7.4.0",
     "koa2": "^2.0.0-alpha.7"
+  },
+  "devDependencies": {
+    "node-fetch": "^2.3.0",
+    "nodemon": "^1.18.9"
   }
 }

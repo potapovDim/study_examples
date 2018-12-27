@@ -13,8 +13,8 @@ const {fetchy_util: connection_to_token_servise} = require('./request_util')('ht
 
 
 async function autorized_request(cntx, token) {
-  const {body, body: {token}} = await connection_to_token_servise.post('/', {action: 'ASSERT_TOKEN'})
-  if(token === 'ok') {
+  const {body, body: {token: resp_token}} = await connection_to_token_servise.post('/', {action: 'ASSERT_TOKEN', token})
+  if(resp_token === 'ok') {
     return true
   }
   return cntx.body = body
@@ -64,12 +64,12 @@ const servise_1_action_types = {
 }
 
 const app = new Koa()
-app.use(cors())
+// app.use(cors())
 app.use(bodyParser())
 
 const request_worker = async (cntx) => {
   const {request: {body: {action, token, data}}} = cntx
-
+  console.log(action)
   switch(action) {
     case servise_1_action_types.ASSERT_CONNECTION: {
       return cntx.body = {connection: 'ok'}
@@ -93,8 +93,10 @@ const request_worker = async (cntx) => {
       return cntx
     }
     case servise_1_action_types.GET_JSON_DATA: {
+      console.log(token)
       const is_autorized = await autorized_request(cntx, token)
-      if(is_autorized) {cntx.body = get_JSON_data()}
+      console.log(is_autorized)
+      if(!is_autorized.token) {cntx.body = get_JSON_data()}
       return cntx
     }
     default:
@@ -102,8 +104,7 @@ const request_worker = async (cntx) => {
   }
 }
 // set random port for service_
-set_random_port()
-const {fetchy_util} = require('./request_util')('http://localhost:8080')
+// set_random_port()
 app.use(request_worker)
 
 app.listen(8081)

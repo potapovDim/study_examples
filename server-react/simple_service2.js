@@ -1,7 +1,7 @@
 const Koa = require('koa2')
 const bodyParser = require('koa-bodyparser')
 const cors = require('koa-cors')
-
+const PORT_OBJ = require('./port_share.json')
 const {fetchy_util} = require('./request_util')('http://localhost:8081')
 
 const servise_1_action_types = {
@@ -34,4 +34,4 @@ const request_worker = async (cntx) => {
 
 app.use(request_worker)
 
-app.listen(8080)
+app.listen(PORT_OBJ.PORT)

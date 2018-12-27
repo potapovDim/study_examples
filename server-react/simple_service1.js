@@ -5,20 +5,29 @@ const fs = require('fs')
 const path = require('path')
 const {set_random_port} = require('./port_share')
 
+const data_JSON_path = './temp/data.json'
 
 const second_service_port = set_random_port()
 const {fetchy_util: connection_second_service} = require('./request_util')(`http://localhost:${second_service_port}`)
 
+const is_exist_JSON_data = () => fs.existsSync(path.resolve(process.cwd(), data_JSON_path))
+
 function save_JSON_data(data) {
-  const data_JSON_path = './temp/data.json'
-  const is_presend_JSON_holder = fs.existsSync(path.resolve(process.cwd(), data_JSON_path))
-  if(is_presend_JSON_holder) {
+  if(is_exist_JSON_data()) {
     const existing_JSON_data = JSON.parse(require(data_JSON_path))
     if(Array.isArray(existing_JSON_data)) {
       existing_JSON_data.push(data)
       fs.unlink(data_JSON_path)
       fs.writeFileSync(data_JSON_path, JSON.stringify(existing_JSON_data))
     }
+  }
+}
+// if json file does not exist  return {json_data: 'not found'}
+function get_JSON_data() {
+  if(is_exist_JSON_data()) {
+    return require(data_JSON_path)
+  } else {
+    return {json_data: 'not found'}
   }
 }
 
@@ -39,7 +48,8 @@ const servise_1_action_types = {
   ASSERT_CONNECTION: 'ASSERT_CONNECTION',
   ASSERT_CONNECTION_ENVIRONMENT: 'ASSERT_CONNECTION_ENVIRONMENT',
   SAVE_JSON_DATA: 'SAVE_JSON_DATA',
-  GET_JSON_DATA: 'GET_JSON_DATA'
+  GET_JSON_DATA: 'GET_JSON_DATA',
+
 }
 
 const app = new Koa()
@@ -48,6 +58,7 @@ app.use(bodyParser())
 
 const request_worker = async (cntx) => {
   const {request: {body: {action, token, username}}} = cntx
+
   switch(action) {
     case servise_1_action_types.ASSERT_CONNECTION:
       return cntx.body = {connection: 'ok'}

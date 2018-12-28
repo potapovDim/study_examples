@@ -8,6 +8,7 @@ const {set_random_port} = require('./port_share')
 const data_JSON_path = './temp/data.json'
 
 const second_service_port = set_random_port()
+console.log(second_service_port)
 const {fetchy_util: connection_second_service} = require('./request_util')(`http://localhost:${second_service_port}`)
 const {fetchy_util: connection_to_token_servise} = require('./request_util')('http://localhost:8082')
 
@@ -28,7 +29,6 @@ function clear_JSON_data() {
 }
 
 function save_JSON_data(data) {
-  console.log('____')
   const save_data = (json_data, unlink = true) => {
     try {
       if(unlink) {fs.unlinkSync(path.resolve(process.cwd(), data_JSON_path))}
@@ -42,16 +42,13 @@ function save_JSON_data(data) {
   if(is_exist_JSON_data()) {
     const existing_JSON_data = require(data_JSON_path)
     if(Array.isArray(existing_JSON_data)) {
-      console.log('1')
       existing_JSON_data.push(data)
       return save_data(existing_JSON_data)
     } else if(typeof data === 'object') {
-      console.log('2')
       const new_data = {...existing_JSON_data, data}
       return save_data(new_data)
     }
   } else {
-    console.log('3')
     return save_data(data, false)
   }
 
@@ -67,12 +64,13 @@ function get_JSON_data() {
 // service works with JSON format files
 
 const servise_1_action_types = {
+  AUTORIZATION: 'AUTORIZATION',
   ASSERT_CONNECTION: 'ASSERT_CONNECTION',
   ASSERT_CONNECTION_ENVIRONMENT: 'ASSERT_CONNECTION_ENVIRONMENT',
   SAVE_JSON_DATA: 'SAVE_JSON_DATA',
   CLEAR_JSON_DATA: 'CLEAR_JSON_DATA',
   GET_JSON_DATA: 'GET_JSON_DATA',
-  AUTORIZATION: 'AUTORIZATION'
+  SAVE_TEXT_DATA: 'SAVE_TEXT_DATA'
 }
 
 const app = new Koa()
@@ -100,8 +98,7 @@ const request_worker = async (cntx) => {
     }
     case servise_1_action_types.CLEAR_JSON_DATA: {
       const is_autorized = await autorized_request(cntx, token)
-      if(is_autorized) {cntx.body = clear_JSON_data()}
-
+      if(!is_autorized.token) {cntx.body = clear_JSON_data()}
       return cntx
     }
     case servise_1_action_types.SAVE_JSON_DATA: {
@@ -115,8 +112,21 @@ const request_worker = async (cntx) => {
       if(!is_autorized.token) {cntx.body = get_JSON_data()}
       return cntx
     }
-    default:
+    // text part
+    case servise_1_action_types.SAVE_TEXT_DATA: {
+      // const is_autorized = await autorized_request(cntx, token)
+      // console.log(is_autorized, '!!!!!!!!!!!!!!!!')
+      // if(is_autorized.token) {return cntx}
+
+      const {body} = await connection_second_service.post('/', {action: 'SAVE_TEXT_DATA', data})
+      console.log(body, '!±!!!!!')
+      cntx.body = body
+      return cntx
+      console.log('x')
+    }
+    default: {
       return cntx.body = {ok: 'ok'}
+    }
   }
 }
 // set random port for service_

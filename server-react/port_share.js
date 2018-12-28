@@ -5,7 +5,8 @@ const random_port = (length = 4) => {
   const num_str = '01234567890'
   let base_port = '8'
   for(let i = 0; i < length - 1; i++) {
-    base_port += num_str[i]
+    let rand_num = Math.floor(Math.floor(9) * Math.random())
+    base_port += num_str[rand_num]
   }
   return base_port
 }

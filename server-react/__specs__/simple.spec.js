@@ -3,7 +3,9 @@ const {expect} = require('chai')
 
 describe('Simple test execution', () => {
   let token = ''
-  const data = [{a: 'c'}]
+  const data_json = [{a: 'c'}]
+  const data_txt = 'test txt data'
+
   it('get token', async () => {
     const body_data = {action: 'AUTORIZATION'}
     const {body, status} = await fetchy.post('/', body_data)
@@ -14,7 +16,7 @@ describe('Simple test execution', () => {
     token = body.token
   })
   it('save new data ', async () => {
-    const body_data = {action: 'SAVE_JSON_DATA', token, data}
+    const body_data = {action: 'SAVE_JSON_DATA', token, data: data_json}
     const {body, status} = await fetchy.post('/', body_data)
     // console.log(status)
     // console.log(body)
@@ -40,5 +42,14 @@ describe('Simple test execution', () => {
     expect(status).to.eql(200)
     expect(body).haveOwnProperty('json_data')
     expect(body.json_data).to.eql('removed')
+  })
+  it('save txt data', async () => {
+    const body_data = {action: 'SAVE_TEXT_DATA', token, data: data_txt}
+    const {body, status} = await fetchy.post('/', body_data)
+    // console.log(status)
+    // console.log(body)
+    expect(status).to.eql(200)
+    expect(body).haveOwnProperty('txt_data')
+    expect(body.txt_data).to.eql('ok')
   })
 })

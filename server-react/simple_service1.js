@@ -1,6 +1,6 @@
 const Koa = require('koa2')
 const bodyParser = require('koa-bodyparser')
-const cors = require('koa-cors')
+// const cors = require('koa-cors')
 const fs = require('fs')
 const path = require('path')
 const {set_random_port} = require('./port_share')
@@ -23,10 +23,16 @@ async function autorized_request(cntx, token) {
 
 const is_exist_JSON_data = () => fs.existsSync(path.resolve(process.cwd(), data_JSON_path))
 
+
+function clear_JSON_data() {
+  fs.unlinkSync(path.resolve(process.cwd(), data_JSON_path))
+  return {json_data: 'removed'}
+}
+
 function save_JSON_data(data) {
   const save_data = (json_data) => {
     try {
-      fs.unlink(data_JSON_path)
+      fs.unlinkSync(path.resolve(process.cwd(), data_JSON_path))
       fs.writeFileSync(data_JSON_path, JSON.stringify(json_data))
       return {json_data: 'ok'}
     } catch(e) {
@@ -35,7 +41,7 @@ function save_JSON_data(data) {
     }
   }
   if(is_exist_JSON_data()) {
-    const existing_JSON_data = JSON.parse(require(data_JSON_path))
+    const existing_JSON_data = require(data_JSON_path)
     if(Array.isArray(existing_JSON_data)) {
       existing_JSON_data.push(data)
       return save_data(existing_JSON_data)
@@ -43,7 +49,10 @@ function save_JSON_data(data) {
       const new_data = {...existing_JSON_data, data}
       return save_data(new_data)
     }
+  } else {
+    return save_data(data)
   }
+
 }
 // if json file does not exist  return {json_data: 'not found'}
 function get_JSON_data() {
@@ -59,6 +68,7 @@ const servise_1_action_types = {
   ASSERT_CONNECTION: 'ASSERT_CONNECTION',
   ASSERT_CONNECTION_ENVIRONMENT: 'ASSERT_CONNECTION_ENVIRONMENT',
   SAVE_JSON_DATA: 'SAVE_JSON_DATA',
+  CLEAR_JSON_DATA: 'CLEAR_JSON_DATA',
   GET_JSON_DATA: 'GET_JSON_DATA',
   AUTORIZATION: 'AUTORIZATION'
 }
@@ -69,7 +79,6 @@ app.use(bodyParser())
 
 const request_worker = async (cntx) => {
   const {request: {body: {action, token, data}}} = cntx
-  console.log(action)
   switch(action) {
     case servise_1_action_types.ASSERT_CONNECTION: {
       return cntx.body = {connection: 'ok'}
@@ -77,8 +86,8 @@ const request_worker = async (cntx) => {
     case servise_1_action_types.AUTORIZATION: {
       const {body: {token}} = await connection_to_token_servise.post('/', {action: 'GENERATE_TOKEN'})
       // if token user is autorized
-      if(token) {return {token}}
-      return {token: 'something went wrong'}
+      token ? (cntx.body = {token}) : (cntx.body = {token: 'something went wrong'})
+      return cntx
     }
     case servise_1_action_types.ASSERT_CONNECTION_ENVIRONMENT: {
       const {body} = await connection_second_service.post('/', {action: 'ASSERT_CONNECTION'})
@@ -87,9 +96,16 @@ const request_worker = async (cntx) => {
       }
       return cntx.body = {service_connection: 'service connection not aviliable'}
     }
+    case servise_1_action_types.CLEAR_JSON_DATA: {
+      const is_autorized = await autorized_request(cntx, token)
+      if(is_autorized) {cntx.body = clear_JSON_data()}
+
+      return cntx
+    }
     case servise_1_action_types.SAVE_JSON_DATA: {
       const is_autorized = await autorized_request(cntx, token)
       if(is_autorized) {cntx.body = save_JSON_data(data)}
+
       return cntx
     }
     case servise_1_action_types.GET_JSON_DATA: {

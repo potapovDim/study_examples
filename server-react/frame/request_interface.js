@@ -1,8 +1,8 @@
 const fetch = require('node-fetch')
+const URL = require('url')
 
-let URL = null
-
-async function _fetchy(method, url, body, opts) {
+async function _fetchy(method, host, path, body, opts) {
+  const url = URL.resolve(host, path)
 
   opts = opts || {};
   const headers = opts.headers || {}
@@ -24,17 +24,13 @@ async function _fetchy(method, url, body, opts) {
   }
 }
 
-const fetchy = (method, path, body, opts) => _fetchy(method, URL + path, body, opts);
-
-
 module.exports = function(host) {
-  URL = host
   return {
-    fetchy_util: {
-      get: fetchy.bind(global, "GET"),
-      put: fetchy.bind(global, "PUT"),
-      post: fetchy.bind(global, "POST"),
-      del: fetchy.bind(global, "DELETE")
+    fetchy: {
+      get: _fetchy.bind(global, "GET", host),
+      put: _fetchy.bind(global, "PUT", host),
+      post: _fetchy.bind(global, "POST", host),
+      del: _fetchy.bind(global, "DELETE", host)
     }
   }
-};
+}

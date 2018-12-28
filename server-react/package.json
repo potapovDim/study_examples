@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test1": "mocha --timeout 60000 $(find ./__specs__ -path '*.spec.js')"
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +16,8 @@
     "koa2": "^2.0.0-alpha.7"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
     "node-fetch": "^2.3.0",
     "nodemon": "^1.18.9"
   }

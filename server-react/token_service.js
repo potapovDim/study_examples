@@ -14,6 +14,7 @@ const generate_token = () => {
       let rand_num = Math.floor(Math.floor(62) * Math.random())
       rand += chars[rand_num]
     }
+    return rand
   }
 
   const token = `${get_rand(4)}-${get_rand(4)}-${get_rand(4)}-${get_rand(4)}`

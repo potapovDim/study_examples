@@ -11,6 +11,7 @@ describe('Simple test execution', () => {
     // console.log(body)
     expect(status).to.eql(200)
     expect(body).haveOwnProperty('token')
+    token = body.token
   })
   it('save new data ', async () => {
     const body_data = {action: 'SAVE_JSON_DATA', token, data}
@@ -21,13 +22,23 @@ describe('Simple test execution', () => {
     expect(body).haveOwnProperty('json_data')
     expect(body.json_data).to.eql('ok')
   })
+
   it('get json data ', async () => {
+    console.log(token)
     const body_data = {action: 'GET_JSON_DATA', token}
     const {body, status} = await fetchy.post('/', body_data)
-    console.log(status)
-    console.log(body)
+    // console.log(status)
+    // console.log(body)
+    expect(status).to.eql(200)
+    expect(body).to.eql(data)
+  })
+  it('clear json data', async () => {
+    const body_data = {action: 'CLEAR_JSON_DATA', token}
+    const {body, status} = await fetchy.post('/', body_data)
+    // console.log(status)
+    // console.log(body)
     expect(status).to.eql(200)
     expect(body).haveOwnProperty('json_data')
-    expect(body.json_data).to.eql('ok')
+    expect(body.json_data).to.eql('removed')
   })
 })

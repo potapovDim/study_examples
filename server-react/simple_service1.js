@@ -20,9 +20,7 @@ async function autorized_request(cntx, token) {
   return cntx.body = body
 }
 
-
 const is_exist_JSON_data = () => fs.existsSync(path.resolve(process.cwd(), data_JSON_path))
-
 
 function clear_JSON_data() {
   fs.unlinkSync(path.resolve(process.cwd(), data_JSON_path))
@@ -30,9 +28,10 @@ function clear_JSON_data() {
 }
 
 function save_JSON_data(data) {
-  const save_data = (json_data) => {
+  console.log('____')
+  const save_data = (json_data, unlink = true) => {
     try {
-      fs.unlinkSync(path.resolve(process.cwd(), data_JSON_path))
+      if(unlink) {fs.unlinkSync(path.resolve(process.cwd(), data_JSON_path))}
       fs.writeFileSync(data_JSON_path, JSON.stringify(json_data))
       return {json_data: 'ok'}
     } catch(e) {
@@ -43,14 +42,17 @@ function save_JSON_data(data) {
   if(is_exist_JSON_data()) {
     const existing_JSON_data = require(data_JSON_path)
     if(Array.isArray(existing_JSON_data)) {
+      console.log('1')
       existing_JSON_data.push(data)
       return save_data(existing_JSON_data)
     } else if(typeof data === 'object') {
+      console.log('2')
       const new_data = {...existing_JSON_data, data}
       return save_data(new_data)
     }
   } else {
-    return save_data(data)
+    console.log('3')
+    return save_data(data, false)
   }
 
 }
@@ -104,12 +106,10 @@ const request_worker = async (cntx) => {
     }
     case servise_1_action_types.SAVE_JSON_DATA: {
       const is_autorized = await autorized_request(cntx, token)
-      if(is_autorized) {cntx.body = save_JSON_data(data)}
-
+      if(!is_autorized.token) {cntx.body = save_JSON_data(data)}
       return cntx
     }
     case servise_1_action_types.GET_JSON_DATA: {
-      console.log(token)
       const is_autorized = await autorized_request(cntx, token)
       console.log(is_autorized)
       if(!is_autorized.token) {cntx.body = get_JSON_data()}

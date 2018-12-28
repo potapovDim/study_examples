@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "test1": "mocha --timeout 60000 $(find ./__specs__ -path '*.spec.js')"
+    "test1": "mocha --timeout 60000 ./__specs__/simple.spec.js",
+    "test2": "mocha --timeout 60000 ./__specs__/with_framework.spec.js"
   },
   "author": "",
   "license": "ISC",

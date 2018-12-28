@@ -23,7 +23,6 @@ async function _fetchy(method, host, path, body, opts) {
   }
 }
 
-
 module.exports = function(host) {
   return {
     fetchy_util: {
@@ -33,4 +32,4 @@ module.exports = function(host) {
       del: _fetchy.bind(global, "DELETE", host)
     }
   }
-};
+}

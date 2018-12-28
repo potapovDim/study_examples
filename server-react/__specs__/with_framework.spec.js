@@ -6,8 +6,9 @@ describe('Simple test execution', () => {
   it('CRUD', async () => {
     const data = [{a: 'c'}]
     const assert_authorization = ({status, body}) => {
+      console.log('AAAAAAAAAAAA')
       expect(status).to.eql(200)
-      expect(body).haveOwnProperty('token')
+      expect(body).haveOwnProperty('token_a')
     }
     const assert_save_json = ({status, body}) => {
       expect(status).to.eql(200)

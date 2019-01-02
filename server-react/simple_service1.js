@@ -5,7 +5,6 @@ const fs = require('fs')
 const path = require('path')
 const {set_random_port} = require('./port_share')
 const {getContent} = require('./util')
-const URL = require('url')
 const data_JSON_path = './temp/data.json'
 
 const second_service_port = set_random_port()
@@ -83,7 +82,6 @@ const app = new Koa()
 // app.use(cors())
 app.use(bodyParser())
 const request_worker = async (cntx) => {
-  console.log(cntx.)
   const {request: {body: {action, token, data}}} = cntx
   switch(action) {
     case servise_1_action_types.ASSERT_CONNECTION: {
@@ -148,14 +146,14 @@ const request_worker = async (cntx) => {
     case servise_1_action_types.FOUR: {
       const is_autorized = await autorized_request(cntx, token)
       if(!is_autorized.token) {
-        cntx.body = getContent
+        cntx.body = getContent(action)
       }
       return cntx
     }
     case servise_1_action_types.FIVE: {
-
+      cntx.body = getContent(action)
+      return cntx
     }
-
     default: {
       return cntx.body = {ok: 'ok'}
     }

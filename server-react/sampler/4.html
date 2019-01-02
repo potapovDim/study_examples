@@ -1,0 +1,28 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>Hello from 3 with changeDemention</div>
+  <input type="text">
+
+  <div id="swipe" style="width:400px;height:300px;color: red;background: yellow;">
+  </div>
+
+  <script>
+    function swipe(item) {
+
+    }
+    document.querySelector('#swipe').addEventListener('mousedown', (ev) => {
+      const rect = document.querySelector('#swipe').getBoundingClientRect()
+      document.querySelector('#swipe').innerHTML = JSON.stringify(rect)
+    })
+  </script>
+</body>
+
+</html>

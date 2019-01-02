@@ -1,0 +1,21 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>Hello from 3 with input</div>
+  <input type="text">
+  <div id="text">Random text</div>
+  <script>
+    document.querySelector('input').addEventListener('change', (ev) => {
+      document.querySelector('#text').innerText = ev.target.value
+    })
+  </script>
+</body>
+
+</html>

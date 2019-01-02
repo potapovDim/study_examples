@@ -4,7 +4,8 @@ const bodyParser = require('koa-bodyparser')
 const fs = require('fs')
 const path = require('path')
 const {set_random_port} = require('./port_share')
-
+const {getContent} = require('./util')
+const URL = require('url')
 const data_JSON_path = './temp/data.json'
 
 const second_service_port = set_random_port()
@@ -70,13 +71,19 @@ const servise_1_action_types = {
   GET_JSON_DATA: 'GET_JSON_DATA',
   SAVE_TEXT_DATA: 'SAVE_TEXT_DATA',
   GET_TEXT_DATA: 'GET_TEXT_DATA',
-  CLEAR_TEXT_DATA: 'CLEAR_TEXT_DATA'
+  CLEAR_TEXT_DATA: 'CLEAR_TEXT_DATA',
+  ONE: '1',
+  TWO: '2',
+  THREE: '3',
+  FOUR: '4',
+  FIVE: '5'
 }
 
 const app = new Koa()
 // app.use(cors())
 app.use(bodyParser())
 const request_worker = async (cntx) => {
+  console.log(cntx.)
   const {request: {body: {action, token, data}}} = cntx
   switch(action) {
     case servise_1_action_types.ASSERT_CONNECTION: {
@@ -135,6 +142,20 @@ const request_worker = async (cntx) => {
       }
       return cntx
     }
+    case servise_1_action_types.ONE:
+    case servise_1_action_types.TWO:
+    case servise_1_action_types.THREE:
+    case servise_1_action_types.FOUR: {
+      const is_autorized = await autorized_request(cntx, token)
+      if(!is_autorized.token) {
+        cntx.body = getContent
+      }
+      return cntx
+    }
+    case servise_1_action_types.FIVE: {
+
+    }
+
     default: {
       return cntx.body = {ok: 'ok'}
     }

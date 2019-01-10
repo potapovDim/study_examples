@@ -1,0 +1,19 @@
+{
+  "name": "mock-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --harmony --trace-deprecation  $(find ./spec/ -path '*.spec.*')"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "test-fake-server": "git+git@github.com:potapovDim/mock-backend-rest.git#new_approach"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "node-fetch": "^2.3.0"
+  }
+}

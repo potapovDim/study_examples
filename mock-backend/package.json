@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "test-fake-server": "git+git@github.com:potapovDim/mock-backend-rest.git#new_approach"
+    "test-fake-server": "^2.2.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",

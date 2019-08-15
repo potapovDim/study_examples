@@ -5,10 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=base webpack-dev-server --hot --open",
-    "start:server": "NODE_ENV=server webpack-dev-server --hot",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start-server": "nodemon ./server/index.js",
-    "start-test-server": "nodemon ./test-server/index.js",
     "build": "webpack"
   },
   "author": "",
@@ -21,8 +17,7 @@
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
-    "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "protractor": "^5.2.2",

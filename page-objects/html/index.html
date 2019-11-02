@@ -1,0 +1,63 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>INDEX PAGE</h1>
+  <a href="page.a.html">Navigate To "A PAGE"</a>
+  <div>
+    <input id="text1" placeholder="value 1">
+  </div>
+  <div>
+    <input id="text2" placeholder="value 2">
+  </div>
+  <div>
+    <input id="text3" placeholder="value 3">
+  </div>
+  <div>
+    <input id="text4" placeholder="value 4">
+  </div>
+  <div>
+    <input id="text5" placeholder="value 5">
+  </div>
+  <div>
+    <input id="text6" placeholder="value 6">
+  </div>
+  <div>
+    <input id="text7" placeholder="value 7">
+  </div>
+  <div>
+    <input id="text8" placeholder="value 8">
+  </div>
+
+  <button onclick="initPageInfo()">Init Index Page info</button>
+
+  <script>
+    function initPageInfo() {
+      localStorage.removeItem('indexPage')
+
+      const indexPageInfo = Array.from(Array(8)).reduce((acc, item, index) => {
+        const inputValue = document.querySelector(`#text${index + 1}`).value
+        if (inputValue.length) {
+          acc[index + 1] = inputValue
+        }
+        return acc
+      }, {})
+
+      console.log(indexPageInfo, Object.keys(indexPageInfo).length)
+
+      if (Object.keys(indexPageInfo).length) {
+        localStorage.setItem('indexPage', JSON.stringify(indexPageInfo))
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>

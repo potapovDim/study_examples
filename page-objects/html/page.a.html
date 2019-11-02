@@ -1,0 +1,50 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>PAGE A</h1>
+  <a href="/">Navigate To "Index PAGE"</a>
+  <button onclick="initInfo()">Init Info</button>
+  <script>
+    function initInfo() {
+
+      if (document.getElementById('infoDiv')) {
+        document.body.removeChild(document.getElementById('infoDiv'))
+      }
+
+      const infoDiv = document.createElement('div')
+      infoDiv.id = 'infoDiv'
+
+      const storageInfo = localStorage.getItem('indexPage')
+
+      if (storageInfo) {
+
+        const objInfo = JSON.parse(storageInfo)
+
+        Object.keys(objInfo).forEach(function (keyInfo) {
+
+          const valueInfo = objInfo[keyInfo]
+          const divEl = document.createElement('div')
+          const spanElKey = document.createElement('span')
+          const spanElVal = document.createElement('span')
+          spanElKey.innerText = `Key is: ${keyInfo} `
+          spanElVal.innerText = `Value is: ${valueInfo} `
+          divEl.appendChild(spanElKey)
+          divEl.appendChild(spanElVal)
+          infoDiv.appendChild(divEl)
+        })
+
+        document.body.appendChild(infoDiv)
+      }
+
+    }
+  </script>
+</body>
+
+</html>

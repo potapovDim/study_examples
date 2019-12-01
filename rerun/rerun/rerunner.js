@@ -3,14 +3,14 @@ const { DEBUG } = process.env
 
 const sleep = (ms = 500) => new Promise((resolve) => setTimeout(resolve, ms))
 
-async function rerunner(commandsArr, rerunCount = 3, threadsCount = 2) {
+async function rerunner(commandsArr, rerunCount = 3, threadsCount = 2, stackAnalyzer) {
   let counter = 0
 
   async function rerunCommands(cmds, failedCommands = []) {
     async function executeOneCommand() {
       if (counter < threadsCount && cmds.length) {
         counter++
-        const cmd = await wrapExec(cmds.splice(0, 1)[0])
+        const cmd = await wrapExec(cmds.splice(0, 1)[0], stackAnalyzer)
         if (cmd) {
           failedCommands.push(cmd)
         }

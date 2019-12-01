@@ -1,7 +1,8 @@
 const { expect } = require('chai')
+const {it} = require('../mocha.it.wrapper')
 
 describe('module 2', function () {
-  it('module 2, test 1', () => {
+  it('C21', () => {
     expect(1).to.eq(2)
   })
 })

@@ -1,4 +1,4 @@
-const { HeaderFramgent } = require('./header')
+const { HeaderFramgent } = require('./header.fragment')
 
 module.exports = {
   HeaderFramgent

@@ -1,7 +1,6 @@
 const Router = require('koa-router');
-const { getFreeUser, setFreeUser, getFullUsersList } = require('./user.storage')
-
 const router = new Router();
+const { getFreeUser, setFreeUser, getUsersLits } = require('./data-storage')
 
 router.get('/get-free-user', async (ctx) => {
   ctx.body = getFreeUser()
@@ -10,16 +9,13 @@ router.get('/get-free-user', async (ctx) => {
 router.post('/set-free-user', async (ctx) => {
   const { username } = ctx.request.body
   setFreeUser(username)
-  ctx.body = { data: 'OK' }
+
+  ctx.body = { data: 'ok' }
 })
 
-router.get('/get-users', async (ctx) => {
-  ctx.body = getFullUsersList()
-})
-
-router.get('/', async (ctx) => {
-  ctx.body = 'hello from Koa'
-})
+router.get('/get-users', (ctx) => {
+  ctx.body = getUsersLits()
+});
 
 module.exports = {
   router

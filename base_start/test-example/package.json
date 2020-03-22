@@ -1,0 +1,43 @@
+{
+  "name": "test-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=base webpack-dev-server --hot --open",
+    "start:server": "NODE_ENV=server webpack-dev-server --hot",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start-server": "nodemon ./server/index.js",
+    "start-test-server": "nodemon ./test-server/index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "awb": "^0.4.71",
+    "bunyan": "^1.8.12",
+    "nodemon": "^1.14.10",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "protractor": "^5.2.2",
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-eslint": "5.0.0",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.9.0",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1",
+    "simulant": "^0.2.2",
+    "test-fake-server": "^1.5.4"
+  }
+}

@@ -1,20 +1,6 @@
-function tryStringify(data) {
-  try {
-    return JSON.stringify(data);
-  } catch(error) {
-    console.log(error);
-    return '';
-  }
-}
+const a = process.argv.slice(0, 2)
+a.splice(0, 2)
 
-function tryParse(data) {
-  try {
-    return JSON.parse(data);
-  } catch(error) {
-    console.log(error)
-    return data;
-  }
-}
 
 function findBody(argvs) {
   const body = argvs.find((i) => i.includes('--body='))
@@ -38,13 +24,4 @@ function findMethod(argvs) {
   const method = argvs.find((i) => i.includes('--method='))
   const methodString = method.replace('--method=');
   return tryParse(methodString);
-}
-
-module.exports = {
-  tryStringify,
-  tryParse,
-  findBody,
-  findUrl,
-  findHeaders,
-  findMethod
 }

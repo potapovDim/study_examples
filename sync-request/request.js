@@ -1,18 +1,6 @@
 const http = require('http');
 const url = require('url');
-
-function tryStringify(data) {
-  if(typeof data === 'string') {
-    return data;
-  } else {
-    try {
-      return JSON.stringify(data);
-    } catch(error) {
-      console.log(error);
-      return '';
-    }
-  }
-}
+const {tryStringify} = require('./utils');
 
 function makeRequest(opts = {}) {
   const reqData = opts.reqData;

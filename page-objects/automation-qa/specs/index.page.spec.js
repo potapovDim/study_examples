@@ -1,7 +1,7 @@
-const { expect } = require('chai')
-const { IndexPage } = require('../pages/index.page')
+const {expect} = require('chai')
+const {IndexPage} = require('../pages/index.page')
 
-describe('Set values to fields', function () {
+describe('Set values to fields', function() {
 
   // this.text1 = $('#text1')
   // this.text2 = $('#text2')
@@ -14,12 +14,12 @@ describe('Set values to fields', function () {
 
   const indexPage = new IndexPage()
 
-  beforeEach(async function () {
+  beforeEach(async function() {
     browser.waitForAngularEnabled(false)
     await browser.get('http://localhost:8081/');
   })
 
-  it('set first and second fields', async function () {
+  it('set first and second fields', async function() {
     const dataObj = {
       text1: 'text 1 from test 1',
       text2: 'text 2 from test 1'
@@ -27,7 +27,7 @@ describe('Set values to fields', function () {
     await indexPage.sendKeys(dataObj)
     await browser.sleep(3000);
   });
-  it('set second and third fields', async function () {
+  it('set second and third fields', async function() {
     const dataObj = {
       text2: 'text 2 from test 2',
       text3: 'text 3 from test 2'

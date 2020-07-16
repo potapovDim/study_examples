@@ -11,6 +11,6 @@
   "dependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.2.2",
-    "protractor": "^5.4.2"
+    "protractor": "7.0.0"
   }
 }

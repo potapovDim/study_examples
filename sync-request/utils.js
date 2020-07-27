@@ -18,26 +18,30 @@ function tryParse(data) {
 
 function findBody(argvs) {
   const body = argvs.find((i) => i.includes('--body='))
-  const bodyString = body.replace('--body=');
-  return tryParse(bodyString);
+  if(body) {
+    return tryParse(body.replace('--body='));
+  }
 }
 
 function findUrl(argvs) {
   const body = argvs.find((i) => i.includes('--url='))
-  const bodyString = body.replace('--url=');
-  return tryParse(bodyString);
+  if(body) {
+    return tryParse(body.replace('--url='));
+  }
 }
 
 function findHeaders(argvs) {
   const headers = argvs.find((i) => i.includes('--headers='))
-  const headersString = headers.replace('--headers=');
-  return tryParse(headersString);
+  if(headers) {
+    return tryParse(headers.replace('--headers='));
+  }
 }
 
 function findMethod(argvs) {
   const method = argvs.find((i) => i.includes('--method='))
-  const methodString = method.replace('--method=');
-  return tryParse(methodString);
+  if(method) {
+    return tryParse(method.replace('--method='));
+  }
 }
 
 module.exports = {

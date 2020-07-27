@@ -1,6 +1,8 @@
 const http = require('http');
 const url = require('url');
-const {tryStringify} = require('./utils');
+const {tryStringify, findBody, findHeaders, findMethod, findUrl} = require('./utils');
+// remove two first arguments
+const args = process.argv; args.splice(0, 2);
 
 function makeRequest(opts = {}) {
   const reqData = opts.reqData;
@@ -15,13 +17,7 @@ function makeRequest(opts = {}) {
   };
 
   const options = {
-    port: 4000,
-    host: '127.0.0.1',
-    method: 'GET',
-    path: '/',
-
     ...opts,
-
     headers: {
       ...acceptJSONHeader.headers,
       ...opts.headers
@@ -35,7 +31,7 @@ function makeRequest(opts = {}) {
     console.log(data)
 
     response.on('end', function() {
-      console.log('END', data.join(''))
+      console.log(data.join(''), response.statusCode, response.headers);
     })
   });
 
@@ -46,14 +42,22 @@ function makeRequest(opts = {}) {
   req.end();
 }
 
-
 const opts = {
-  reqData: {username: 'admin', password: 'admin'},
-  port: 4000,
-  host: '127.0.0.1',
+  reqData: {username: 'adminx', password: 'admin'},
   method: 'POST',
-  path: '/login',
+  ...url.parse('http://localhost:4000/login')
 }
 
-makeRequest()
+const reqUrl        = findUrl(args);
+const reqMethod     = findMethod(args);
+const reqBody       = findBody(args);
+const reqHeaders    = findHeaders(args);
+
+// const opts = {
+//   reqData           : reqBody,
+//   method            : reqMethod,
+//   headers           : reqHeaders,
+//   ...url(reqUrl)
+// }
+
 makeRequest(opts)

@@ -14,5 +14,5 @@ function executeSyncRequest(url, method = 'GET', body, headers) {
     cmd += ` --method==${tryStringify(method)}`;
   }
 
-  execSync(cmd)
+  const responseData = execSync(cmd);
 }

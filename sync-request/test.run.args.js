@@ -1,3 +1,4 @@
+const url = require('url')
 const a = process.argv.slice(0, 2)
 a.splice(0, 2)
 
@@ -25,3 +26,6 @@ function findMethod(argvs) {
   const methodString = method.replace('--method=');
   return tryParse(methodString);
 }
+
+
+console.log(url.parse('http://localhost:4000/login'))

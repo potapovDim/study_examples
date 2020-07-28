@@ -28,10 +28,12 @@ function makeRequest(opts = {}) {
     const data = [];
     response.on('data', data.push.bind(data));
 
-    console.log(data)
-
     response.on('end', function() {
-      console.log(data.join(''), response.statusCode, response.headers);
+      process.stdout.write(tryStringify({
+        body: data.join(''),
+        status: response.statusCode,
+        headers: response.headers
+      }));
     })
   });
 
@@ -42,22 +44,17 @@ function makeRequest(opts = {}) {
   req.end();
 }
 
-const opts = {
-  reqData: {username: 'adminx', password: 'admin'},
-  method: 'POST',
-  ...url.parse('http://localhost:4000/login')
-}
-
 const reqUrl        = findUrl(args);
 const reqMethod     = findMethod(args);
 const reqBody       = findBody(args);
 const reqHeaders    = findHeaders(args);
 
-// const opts = {
-//   reqData           : reqBody,
-//   method            : reqMethod,
-//   headers           : reqHeaders,
-//   ...url(reqUrl)
-// }
+
+const opts = {
+  reqData           : reqBody,
+  method            : reqMethod,
+  headers           : reqHeaders,
+  ...url.parse(reqUrl)
+}
 
 makeRequest(opts)

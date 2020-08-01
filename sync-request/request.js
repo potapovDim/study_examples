@@ -26,6 +26,7 @@ function makeRequest(opts = {}) {
 
   const req = http.request(options, function(response) {
     const data = [];
+
     response.on('data', data.push.bind(data));
 
     response.on('end', function() {
@@ -48,7 +49,6 @@ const reqUrl        = findUrl(args);
 const reqMethod     = findMethod(args);
 const reqBody       = findBody(args);
 const reqHeaders    = findHeaders(args);
-
 
 const opts = {
   reqData           : reqBody,

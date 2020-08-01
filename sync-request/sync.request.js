@@ -15,13 +15,16 @@ function executeSyncRequest(url, method = 'GET', body, headers) {
   if(headers) {
     cmd += ` --findHeaders='${tryStringify(headers)}'`;
   }
+  console.log(cmd);
 
   const responseData = execSync(cmd);
   return tryParse(responseData.toString('utf-8'));
 }
 
-
-const result = executeSyncRequest('http://localhost:4000/login', 'POST', {username: 'adminx', password: 'admin'})
+console.log('Sync code call 1')
+const result = executeSyncRequest('http://localhost:4000/get_machines')
 console.log(result.status)
 console.log(result.body)
-console.log(result.headers)
+console.log('Sync code call 2')
+console.log('Sync code call 2')
+// console.log(result.headers)

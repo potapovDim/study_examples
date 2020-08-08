@@ -80,5 +80,6 @@ function buildRequest(host: string): IRequest {
 
 export {
   buildRequest,
-  IRequest
+  IRequest,
+  IRespose
 }

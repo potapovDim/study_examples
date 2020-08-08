@@ -7,11 +7,11 @@ class UserService extends BaseInterface {
   }
 
   getUserData() {
-    return this.req.get({path: '/user-data'})
+    return this.req.get({path: '/user-data'}) as any
   }
 
   userLogin(body: {username?: string, password?: string}) {
-    return this.req.post({path: '/user-login', body})
+    return this.req.post({path: '/user-login', body}) as any
   }
 }
 

@@ -1,0 +1,14 @@
+{
+  "name": "interview",
+  "version": "1.0.0",
+  "description": "",
+  "main": "array.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "assertior": "0.0.9"
+  }
+}

@@ -73,7 +73,7 @@ function buildRequest(host: string): IRequest {
     get: _fetch.bind(_fetch, host, methods.get),
     post: _fetch.bind(_fetch, host, methods.post),
     put: _fetch.bind(_fetch, host, methods.put),
-    del: _fetch.bind(_fetch, host, methods.post)
+    del: _fetch.bind(_fetch, host, methods.del)
   }
 }
 

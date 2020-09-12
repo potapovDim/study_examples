@@ -18,14 +18,13 @@ async function stepAllure(name, cb) {
     if (result) {
       allure.attachment(`${name} result`, JSON.stringify(result), ContentType.JSON);
     }
+    // set success result
     step.step.stepResult.status = 'passed';
-
     step.endStep();
-
     return result;
 
   } catch (error) {
-
+    // set fail result
     step.step.stepResult.status = 'broken';
     step.endStep();
 

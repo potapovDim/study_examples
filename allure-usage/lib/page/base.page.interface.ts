@@ -11,7 +11,7 @@ class BasePageInterface {
     this.name = name ? name : BasePageInterface.name;
   }
 
-  @step((name) => `${name} click`)
+  @step((name) => `${name} execute click`)
   async click(clickObj?: object) {
     if (!clickObj) {
       throw new Error(`${this.name} click argument should be an object`);
@@ -25,7 +25,7 @@ class BasePageInterface {
     }
   }
 
-  @step((name) => `${name} get`)
+  @step((name) => `${name} execute get`)
   async get(getObj: object) {
     if (!getObj) {
       throw new Error(`${this.name} get argument should be an object`);
@@ -42,7 +42,7 @@ class BasePageInterface {
     return tempGet;
   }
 
-  @step((name) => `${name} send keys`)
+  @step((name) => `${name} execute sendKeys`)
   async sendKeys(sendObj: object) {
     if (!sendObj) {
       throw new Error(`${this.name} send keys argument should be an object`);
@@ -58,7 +58,7 @@ class BasePageInterface {
     }
   }
 
-  @step((name) => `${name} is displayed`)
+  @step((name) => `${name} execute isDisplay`)
   async isDisplay(dispayObj) {
     if (dispayObj === null) {
       return (await this.root.isPresent()) && this.root.isDisplayed()

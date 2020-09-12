@@ -1,6 +1,6 @@
 import {browserInterace} from '../browser';
 
-function wrateTest(cb) {
+function wrapedTest(cb) {
   return async function() {
     try {
       await cb()
@@ -9,16 +9,14 @@ function wrateTest(cb) {
       throw error;
     }
   }
-
 }
 
-
-function wrapperIt(name, cb) {
+function wrappedIt(name, cb) {
   global.it(name, async function() {
-    await wrateTest(cb).call(this);
+    await wrapedTest(cb).call(this);
   });
 }
 
 export {
-  wrapperIt
+  wrappedIt
 }

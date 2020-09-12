@@ -1,5 +1,6 @@
 import {ElementFinder} from 'protractor'
 import {waiter} from '../element_utils'
+import {step} from '../report'
 
 class BaseElement {
   private root: ElementFinder;
@@ -17,6 +18,7 @@ class BaseElement {
   get elRoot() {
     return this.root;
   }
+
 
   async click() {
     await this.waitVisible();

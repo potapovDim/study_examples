@@ -1,11 +1,8 @@
-import {stepLog} from './console';
 import {stepAllure, attachScreenshot, attachJsonData} from './allure';
 
-const {REPORTER} = process.env;
 
 function step(stepName: string | Function) {
   return function(_target, _name, descriptor) {
-
     const originalValue = descriptor.value;
 
     descriptor.value = function(...args) {
@@ -19,14 +16,7 @@ function step(stepName: string | Function) {
       if (this.constructor.name.includes('Browser')) {
         localStepName = `${localStepName}  ${args[0] ? args[0] : ''}`
       }
-
-
-
-      if (REPORTER === 'allure') {
-        return stepAllure(localStepName, originalValue.bind(this, ...args))
-      } else {
-        return stepLog(localStepName, originalValue.bind(this, ...args));
-      }
+      return stepAllure(localStepName, originalValue.bind(this, ...args));
     }
 
     return descriptor;

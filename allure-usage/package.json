@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "test": "REPORTER=allure protractor ./protractor.conf.js --mochaOpts.reporter=allure-mocha",
+    "test": "protractor ./protractor.conf.js --mochaOpts.reporter=allure-mocha",
     "mocha-test": "mocha --require ts-node/register ./specs/mocha.noop.spec.ts -R allure-mocha"
   },
   "keywords": [],

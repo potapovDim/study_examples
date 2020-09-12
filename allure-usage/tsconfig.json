@@ -10,5 +10,5 @@
   "exclude": [
     "node_modules"
   ],
-  "include": ["lib", "framework", "specs"]
+  "include": ["lib", "framework", "specs", "lib/test_runner", "lib/report", "lib/browser"]
 }

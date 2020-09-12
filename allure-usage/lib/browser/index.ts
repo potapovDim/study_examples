@@ -3,9 +3,6 @@ import {step, attachScreenshot, attachJsonData} from '../report'
 
 
 class Browser {
-  constructor() {
-
-  }
 
   @step('Browser execute navigate to ')
   async get(url) {
@@ -17,7 +14,7 @@ class Browser {
     return browser.getCurrentUrl();
   }
 
-  @step('Browser attach allure screenshot')
+  @step('Attach fail condition')
   async attachAllureScreenshot(name = 'Screenshot') {
     const png = await browser.takeScreenshot();
     const url = await browser.getCurrentUrl();

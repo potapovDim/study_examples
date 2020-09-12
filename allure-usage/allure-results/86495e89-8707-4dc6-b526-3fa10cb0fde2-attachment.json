@@ -1,0 +1,7 @@
+{
+  "generatedMessage": false,
+  "code": "ERR_ASSERTION",
+  "actual": "test",
+  "expected": "Увійти",
+  "operator": "toEqual"
+}

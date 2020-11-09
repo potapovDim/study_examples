@@ -7,7 +7,7 @@ interface IRequestParams {
   path: string;
   body?: any
   headers?: object;
-  qeuries?: object;
+  queries?: object;
 }
 
 interface IRespose {
@@ -42,23 +42,23 @@ function createReqBody(body: any, method: string) {
   }
 }
 
-async function _fetch(host: string, method: string, {path, body, headers, qeuries}) {
-  qeuries = qeuries ? `?${QS.stringify(qeuries)}` : '';
+async function _fetch(host: string, method: string, {path, body, headers, queries}) {
+  queries = queries ? `?${QS.stringify(queries)}` : '';
   body = createReqBody(body, method);
   headers = headers || {'Content-Type': 'application/json'};
 
 
-  const requestUrl = `${URL.resolve(host, path)}${qeuries}`;
-  logger(`\t${method} Request to ${requestUrl}`, body, headers, qeuries);
+  const requestUrl = `${URL.resolve(host, path)}${queries}`;
+  logger(`\t${method} Request to ${requestUrl}`, body, headers, queries);
   const response = await fetchy(requestUrl, {method, headers, body});
 
   const responseHeaders = Array
     .from(response.headers.entries())
     .reduce((acc, [key, value]) => {acc[key] = value.toLowerCase(); return acc}, {})
 
-  const reponseBodyMethod = responseHeaders['content-type'].includes('application/json') ? 'json' : 'text'
+  const responseBodyMethod = responseHeaders['content-type'].includes('application/json') ? 'json' : 'text'
   const responseData = {
-    body: await response[reponseBodyMethod](),
+    body: await response[responseBodyMethod](),
     status: response.status,
     headers: responseHeaders
   };

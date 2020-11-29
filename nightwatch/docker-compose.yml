@@ -1,0 +1,22 @@
+version: '3'
+services:
+  selenium:
+    networks:
+      selenoid: null
+    image: selenium/standalone-chrome
+    ports:
+      - "4444:4444"
+  automation:
+    networks:
+      selenoid: null
+    environment:
+      SELENIUM_HOST: selenium
+      SELENIUM_PORT: 4444
+    image: test:test
+    depends_on:
+      - selenium
+
+networks:
+  selenoid:
+    external:
+      name: selenoid # This assumes network is already created

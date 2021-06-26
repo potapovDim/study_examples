@@ -1,0 +1,6 @@
+node_modules
+package-lock.json
+built
+playground.*
+allure-results
+test_rail_data.json

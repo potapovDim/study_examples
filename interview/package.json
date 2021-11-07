@@ -1,14 +1,12 @@
 {
-  "name": "interview",
-  "version": "1.0.0",
+  "name": "super_example_package_study_example",
+  "version": "1.0.5",
   "description": "",
-  "main": "array.js",
+  "main": "lib/index.js",
+  "bin": "hey/hey",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "assertior": "0.0.9"
-  }
+  "license": "ISC"
 }
